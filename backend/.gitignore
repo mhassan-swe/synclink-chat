@@ -1,0 +1,25 @@
+api.http
+
+# Node modules
+node_modules/
+
+# Logs
+logs
+*.log
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Build / coverage
+dist/
+build/
+coverage/
+
+# OS and editor
+.DS_Store
+.vscode/
+!.vscode/extensions.json
+.idea/
+
