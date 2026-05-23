@@ -8,7 +8,7 @@ const app = express();
 
 dotenv.config();
 
-app.use(express.json());
+app.use(express.json()); //alow json data to extract it out of body 
 
 app.use(router);
 
