@@ -4,7 +4,7 @@ import { generateToken } from '../lib/utils.js'
 
 export const signUp = async (req, res) => {
     try {
-        const { fullName, email, password, profilePicture } = req.body || {};
+        const { fullName, email, password } = req.body || {};
         
         if (!fullName || !email || !password) {
             return res.status(400).json({ message: "All fields (fullName, email, password) are required" });
@@ -26,8 +26,7 @@ export const signUp = async (req, res) => {
         const newUser = new User({
             fullName,
             email,
-            password: hashedPassword,
-            profilePicture: profilePicture || ''
+            password: hashedPassword
         });
 
         if (newUser) {
@@ -38,7 +37,8 @@ export const signUp = async (req, res) => {
                 _id: newUser._id,
                 fullName: newUser.fullName,
                 email: newUser.email,
-                profilePicture: newUser.profilePicture
+                profilePicture:newUser.profilePicture
+
             });
         } else {
             return res.status(400).json({ message: 'Invalid User data' });
@@ -48,3 +48,36 @@ export const signUp = async (req, res) => {
         return res.status(500).json({ message: error.message });
     }
 };
+
+export const login =async (req,res) => {
+    try{
+        const { email, password } = req.body || {};
+
+        if( !email || !password ){
+            return res.status(400).json({message:"All fields are required"});
+        }
+
+        const user = await User.findOne({email});
+        if(!user){
+            return res.status(400).json({message:"Invalid Credentials"});
+        }
+
+        const checkPassword = await bcrypt.compare(password,user.password)
+        if(!checkPassword){
+            return res.status(400).json({message:"Invalid Credentials"});
+        }
+
+
+        generateToken(user._id,res);
+
+        return res.status(200).json({
+            _id: user._id,
+            fullName: user.fullName,
+            email: user.email,
+            profilePicture:user.profilePicture
+        })
+    }
+    catch(error){
+        return res.status(500).json({message:error.message});
+    }
+}
