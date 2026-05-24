@@ -96,3 +96,11 @@ export const logout = (req,res) => {
        return res.status(500).json({message:error.message});
     }
 }
+
+
+export const updateProfile = async (req,res) => {
+    try{}
+    catch(error){
+        return res.status(500).json({message:error.massage})
+    }
+};
