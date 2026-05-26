@@ -1,13 +1,25 @@
-import jwt from 'jsonwebtoken'
+import jwt, { verify } from 'jsonwebtoken'
 import User from '../models/user.model.js'
 
-export const protectRoute = () => {
+export const protectRoute = (req,res,next) => {
     try{
         const token = req.cookies.jwt;
 
         if(!token){
-            return res.status(400).json({message:'Login required'});
+            return res.status(400).json({message:'No token exist!'});
         }
+
+        const decoded  = jwt.verify(token, process.env.JWT_SECRET);
+        if(!decoded){
+            return res.status(401).json({message:'Invalid Token'})
+        }
+
+        const user = await User.findById(doceded.userId).select('-password');
+        if(!user){
+            return res.status(401).json({message:'User not found'})
+        }
+
+        
 
 
     }
