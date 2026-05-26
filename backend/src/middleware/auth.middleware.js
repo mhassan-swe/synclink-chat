@@ -1,4 +1,4 @@
-import jwt, { verify } from 'jsonwebtoken'
+import jwt from 'jsonwebtoken'
 import User from '../models/user.model.js'
 
 export const protectRoute = (req,res,next) => {
@@ -19,7 +19,8 @@ export const protectRoute = (req,res,next) => {
             return res.status(401).json({message:'User not found'})
         }
 
-        
+        req.user = user;
+        next();
 
 
     }
