@@ -5,7 +5,7 @@ import { getUsersForSideBar, getMessages } from '../controllers/message.controll
 const messageRoute = Router();
 
 messageRoute.get('/users',protectRoute,getUsersForSideBar);
-messageRoute.get(':_id',protectRoute,getMessages)
+messageRoute.get('/:id',protectRoute,getMessages)
 
 export default messageRoute;
 
