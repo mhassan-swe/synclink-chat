@@ -2,14 +2,14 @@ import { Router } from "express";
 import { signUp, login ,logout ,updateProfile, checkAuth } from '../controllers/auth.controller.js'
 import { protectRoute } from '../middleware/auth.middleware.js'
 
-const router = Router();
+const authRoute = Router();
 
-router.post('/sign-up',signUp);
-router.post('/login',login);
-router.post('/logout',logout);
+authRoute.post('/sign-up',signUp);
+authRoute.post('/login',login);
+authRoute.post('/logout',logout);
 
-router.put('/update_profile',protectRoute,updateProfile)
+authRoute.put('/update_profile',protectRoute,updateProfile)
 
-router.get('/check',protectRoute,checkAuth)
+authRoute.get('/check',protectRoute,checkAuth)
 
-export default router;
+export default authRoute;

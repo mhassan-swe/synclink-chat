@@ -1,9 +1,9 @@
 import express from 'express'
 import { connectDB } from './src/lib/db.js'
 import dotenv from 'dotenv'
-import router from './src/routes/auth.route.js'
+import authRoute from './src/routes/auth.route.js'
+import messageRoute from './src/routes/message.route.js'
 import cookieParser from 'cookie-parser'
-import cors from 'cors'
 
 const app = express(); 
 
@@ -11,7 +11,8 @@ dotenv.config();
 
 app.use(express.json());// allow json data to be parsed into req.body
 app.use(cookieParser());
-app.use('/api/auth',router);
+app.use('/api/auth',authRoute);
+app.use('/api/message',messageRoute);
 
 
 
